@@ -41,4 +41,9 @@ public class Ticket {
         if(this.createdOn==null) this.createdOn = LocalDateTime.now();
         this.updatedOn = LocalDateTime.now();
     }
+
+    @PreUpdate
+    void preUpdate(){
+        this.updatedOn = LocalDateTime.now();
+    }
 }
