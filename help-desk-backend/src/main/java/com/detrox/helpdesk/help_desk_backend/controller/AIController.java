@@ -4,9 +4,11 @@ import com.detrox.helpdesk.help_desk_backend.service.AIService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 @RestController
-@RequestMapping("/api/v1/ai")
+@RequestMapping("/api/v1/helpdesk")
 @RequiredArgsConstructor
 public class AIController {
 
@@ -16,6 +18,12 @@ public class AIController {
     public ResponseEntity<String> getResponse(@RequestBody String query,
                                               @RequestHeader("conversationId") String conversationId){
         return ResponseEntity.ok(aiService.getResponsefromAssistant(query,conversationId));
+    }
+
+    @PostMapping("/stream")
+    public Flux<String> streamResponse(@RequestBody String query,
+                                       @RequestHeader("conversationId") String conversationId){
+        return aiService.streamresponseFromAssistant(query,conversationId);
     }
 
 }
