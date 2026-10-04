@@ -1,11 +1,19 @@
 package com.detrox.helpdesk.help_desk_backend.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "help_desk_tickets")
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Ticket {
 
     @Id
@@ -24,5 +32,13 @@ public class Ticket {
     private LocalDateTime createdOn;
 
     private LocalDateTime updatedOn;
-    
+
+    @Enumerated(EnumType.STRING)
+    private Status status;
+
+    @PrePersist
+    void preSave(){
+        if(this.createdOn==null) this.createdOn = LocalDateTime.now();
+        this.updatedOn = LocalDateTime.now();
+    }
 }
