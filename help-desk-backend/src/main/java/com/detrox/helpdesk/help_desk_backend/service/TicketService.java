@@ -8,7 +8,7 @@ public interface TicketService {
 
     Ticket getTicket(Long ticketId);
 
-    Ticket getTicketByUsername(String username);
+    Ticket getTicketByEmail(String email);
 
-    Ticket updateTicket(Ticket ticket, Long ticketId);
+    Ticket updateTicket(Ticket ticket);
 }

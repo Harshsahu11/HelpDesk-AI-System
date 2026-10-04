@@ -5,6 +5,7 @@ import com.detrox.helpdesk.help_desk_backend.repository.TicketRepository;
 import com.detrox.helpdesk.help_desk_backend.service.TicketService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -15,21 +16,24 @@ public class TicketServiceImpl implements TicketService {
 
     // create Ticket
     @Override
+    @Transactional
     public Ticket createTicket(Ticket ticket){
+        ticket.setId(null);
         return ticketRepository.save(ticket);
     }
 
     // update Ticket
     @Override
-    public Ticket updateTicket(Ticket ticket, Long ticketId) {
+    @Transactional
+    public Ticket updateTicket(Ticket ticket) {
 
-        Ticket existingTicket = ticketRepository.findById(ticketId)
+        Ticket existingTicket = ticketRepository.findById(ticket.getId())
                 .orElseThrow(() -> new RuntimeException("Ticket not found"));
 
         existingTicket.setSummary(ticket.getSummary());
         existingTicket.setPriority(ticket.getPriority());
         existingTicket.setStatus(ticket.getStatus());
-        existingTicket.setUsername(ticket.getUsername());
+        existingTicket.setEmail(ticket.getEmail());
 
         return ticketRepository.save(existingTicket);
     }
@@ -42,8 +46,8 @@ public class TicketServiceImpl implements TicketService {
 
     // get Ticket by username
     @Override
-    public Ticket getTicketByUsername(String username){
-        return ticketRepository.findByUsername(username).orElse(null);
+    public Ticket getTicketByEmail(String email){
+        return ticketRepository.findByEmail(email).orElse(null);
     }
 
 
