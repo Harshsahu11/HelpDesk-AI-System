@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: help-desk-backend
+
+  ai:
+    google:
+      genai:
+        api-key: ${GEMINI_API_KEY}
+      chat:
+        model: gemini-3.5-flash-lite
+
+  # Database Configuration
+  datasource:
+    url: jdbc:mysql://localhost:3306/help_desk_ai
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+server:
+  port: 8081
