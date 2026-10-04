@@ -12,7 +12,6 @@ public class AiConfig {
     public ChatClient chatClient(ChatClient.Builder builder){
         return builder
                 .defaultSystem("Summarize the response within 400 words.")
-
                 .defaultAdvisors(new SimpleLoggerAdvisor())
                 .build();
     }

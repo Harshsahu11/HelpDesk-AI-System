@@ -7,6 +7,8 @@ import org.springframework.ai.tool.annotation.Tool;
 import org.springframework.ai.tool.annotation.ToolParam;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
+
 @Component
 @RequiredArgsConstructor
 public class TicketDatabaseTool {
@@ -35,7 +37,7 @@ public class TicketDatabaseTool {
     // get current system time
     @Tool(description = "This tool helps to get current system time")
     public String getCurrentTime(){
-        return String.valueOf(System.currentTimeMillis());
+        return LocalDateTime.now().toString();
     }
 
 }
